@@ -2,13 +2,11 @@
 
 from tkinter import *
 import requestMethod
-import json
 
 
 def printtext(event):
     doc = entry.get()
     doc=doc.title()
-        
 ################################## second window opens#######################################
     searchbutton.place_forget()
     lable.place_forget()
@@ -24,6 +22,7 @@ def printtext(event):
     if doc == '':
         output = requestMethod.get()
         for x in output:
+
             for key,item in x.items():
 
                 area.insert(INSERT, key)
@@ -32,12 +31,19 @@ def printtext(event):
                 area.insert(INSERT, "\n\n")
     else:
         output=requestMethod.post(doc)
-        for x in output:
-            for key,item in  x.items():
-                area.insert(INSERT,key)
-                area.insert(INSERT, "\n\n")
-                area.insert(INSERT, item)
-                area.insert(INSERT, "\n\n")
+        length=len(output)
+        if length> 0:
+            for x in output:
+
+                for key,item in  x.items():
+
+                    area.insert(INSERT,key)
+                    area.insert(INSERT, "\n\n")
+                    area.insert(INSERT, item)
+                    area.insert(INSERT, "\n\n")
+        else:
+            area.insert(INSERT,'Error 404, Not found')
+    
     area.config(state=DISABLED)
 
 
